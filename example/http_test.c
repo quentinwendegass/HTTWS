@@ -1,13 +1,12 @@
 //
-// Created by Quentin Wendegass on 2019-01-10.
+// Created by Quentin Wendegass on 2019-01-24.
 //
 
 #include <httws/httws.h>
-#include <httws/websocket.h>
 #include <httws/http.h>
 
 
-void test_http(){
+int main() {
     httws_request * request = httws_alloc_request("postman-echo.com");
 
     httws_header content_type_header;
@@ -56,33 +55,4 @@ void test_http(){
     httws_free_request(request);
 
     httws_disconnect();
-}
-
-
-/* Not working example!
- * Just to showcase how to use websocket. */
-void test_websocket(){
-    if(httws_connect("host", "443", true) < 0){
-        exit(-1);
-    }
-
-    httws_ws_handshake();
-
-    char d[] = "data to send";
-
-    httws_ws_send(d, (unsigned short) strlen(d));
-
-    char * res = httws_ws_resv();
-
-    printf("%s\n", res);
-
-    free(res);
-
-    httws_disconnect();
-}
-
-
-
-int main() {
-    test_http();
 }
